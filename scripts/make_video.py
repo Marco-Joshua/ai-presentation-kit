@@ -122,11 +122,20 @@ def main():
                     "-c", "copy", out], capture_output=True)
     if not pathlib.Path(out).exists(): die("최종 합성 실패")
 
-    # ── 배경음악: assets/bgm*.mp3 가 있으면 내레이션 밑에 깔아준다 (--no-bgm 으로 끔) ──
-    kit_root = pathlib.Path(__file__).resolve().parent.parent
-    bgms = sorted(kit_root.glob("assets/bgm*.mp3")) + sorted(kit_root.glob("assets/bgm*.wav"))
-    if "--bgm" in sys.argv: bgms = [pathlib.Path(sys.argv[sys.argv.index("--bgm") + 1])]
-    if bgms and "--no-bgm" not in sys.argv:
+    # ── 배경음악: 기본 꺼짐. --bgm 을 줬을 때만 깔린다 ──
+    #    --bgm            → 키트에 들어 있는 곡(assets/bgm*.mp3) 사용
+    #    --bgm 파일경로    → 지정한 곡 사용
+    bgms = []
+    if "--bgm" in sys.argv:
+        i = sys.argv.index("--bgm")
+        if i + 1 < len(sys.argv) and not sys.argv[i + 1].startswith("--") \
+           and pathlib.Path(sys.argv[i + 1]).suffix.lower() in (".mp3", ".wav"):
+            bgms = [pathlib.Path(sys.argv[i + 1])]
+        else:
+            kit_root = pathlib.Path(__file__).resolve().parent.parent
+            bgms = sorted(kit_root.glob("assets/bgm*.mp3")) + sorted(kit_root.glob("assets/bgm*.wav"))
+            if not bgms: die("--bgm: 키트 assets/에 bgm 파일이 없습니다. 경로를 지정해 주세요")
+    if bgms:
         bgm, mixed = bgms[0], out.replace("_영상", "_영상_bgm")
         fade = max(t0 - 2.0, 0)
         r = subprocess.run(["ffmpeg", "-y", "-i", out, "-stream_loop", "-1", "-i", str(bgm),

@@ -4,3 +4,4 @@ output/*
 *.mp4
 *.wav
 *.mp3
+!assets/bgm*.mp3

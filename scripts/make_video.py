@@ -49,6 +49,7 @@ def synth(voice, text, out_mp3, tmp):
     if r.returncode or not out_mp3.exists(): die("edge-tts 합성 실패 (인터넷 연결 확인)")
     return out_mp3
 W, H, PAD = 1280, 720, 0.45   # 해상도, 장면 간 여백(초)
+BGM_VOL = 0.12                 # 배경음악 크기 (내레이션 대비 · 귀로 듣고 조절)
 
 def die(msg): print(f"✗ {msg}"); sys.exit(1)
 
@@ -120,6 +121,25 @@ def main():
     subprocess.run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(tmp/"list.txt"),
                     "-c", "copy", out], capture_output=True)
     if not pathlib.Path(out).exists(): die("최종 합성 실패")
+
+    # ── 배경음악: assets/bgm*.mp3 가 있으면 내레이션 밑에 깔아준다 (--no-bgm 으로 끔) ──
+    kit_root = pathlib.Path(__file__).resolve().parent.parent
+    bgms = sorted(kit_root.glob("assets/bgm*.mp3")) + sorted(kit_root.glob("assets/bgm*.wav"))
+    if "--bgm" in sys.argv: bgms = [pathlib.Path(sys.argv[sys.argv.index("--bgm") + 1])]
+    if bgms and "--no-bgm" not in sys.argv:
+        bgm, mixed = bgms[0], out.replace("_영상", "_영상_bgm")
+        fade = max(t0 - 2.0, 0)
+        r = subprocess.run(["ffmpeg", "-y", "-i", out, "-stream_loop", "-1", "-i", str(bgm),
+             "-filter_complex",
+             f"[1:a]volume={BGM_VOL},afade=t=out:st={fade:.1f}:d=2[bg];"
+             f"[0:a][bg]amix=inputs=2:duration=first:dropout_transition=0[a]",
+             "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-t", f"{t0:.2f}", mixed],
+             capture_output=True)
+        if r.returncode == 0 and pathlib.Path(mixed).exists():
+            pathlib.Path(mixed).replace(out)
+            print(f"  배경음악: {bgm.name} (볼륨 {BGM_VOL})")
+        else:
+            print("  배경음악 합성 실패 — 내레이션만으로 완성했습니다")
     print(f"✓ 완성: {out}  ({t0:.0f}초)")
     print("  검사: 영상을 직접 열어 소리·자막·화면 전환을 확인하세요 (03_검사.md 참고)")
 

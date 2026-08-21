@@ -1,0 +1,6 @@
+.DS_Store
+output/*
+!output/README.md
+*.mp4
+*.wav
+*.mp3

@@ -24,8 +24,8 @@ def main() -> int:
     print("정지된 PPT 이미지에 음성만 붙이는 방식은 사용하지 않습니다.")
     print("동적 영상은 manifest.json을 만든 뒤 다음 명령으로 생성하세요:")
     print("  python3 scripts/render_video.py manifest.json --output output/final.mp4")
-    print("완주 예제:")
-    print("  python3 scripts/render_video.py examples/weekly-report-20260814/manifest.json")
+    print("고품질 기준 예제:")
+    print("  python3 scripts/render_video.py examples/customer-support-weekly-20260827/manifest.json")
     return 2
 
 

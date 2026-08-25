@@ -1,0 +1,4 @@
+interface:
+  display_name: "브리핑 영상"
+  short_description: "로컬 음성과 동적 장면으로 발표 영상을 완성합니다"
+  default_prompt: "Use $project-briefing-video to create and verify a narrated project briefing video."

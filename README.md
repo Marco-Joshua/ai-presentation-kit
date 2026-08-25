@@ -14,6 +14,21 @@
 | `시작_문장_3종.md` | 설치, 새 세션 맥락 확인, 결과물 제작에 복사해 붙이는 문장 |
 | `첫_자동화_판별_체크리스트.md` | 내 업무가 첫 자동화로 적합한지 판단하는 실물 체크리스트 |
 | `examples/weekly-report-20260814/` | 메일·통화·회의·메신저에서 주간보고 영상까지 만드는 완주 예제와 미리보기 |
+| `examples/customer-support-weekly-20260827/` | 강의 데이터로 만든 수치·자막·이미지 중심 고품질 주간보고 영상 예제 |
+
+## Codex 공식 프로젝트 구조
+
+Codex가 저장소 안의 기능을 자동 발견하도록 공식 프로젝트 스킬 위치인 `.agents/skills/`에 작업법을 분리했습니다.
+
+참고: [Codex Skills 공식 문서](https://developers.openai.com/codex/skills/) · [AGENTS.md 공식 가이드](https://developers.openai.com/codex/guides/agents-md/)
+
+| 스킬 | 해주는 일 |
+|---|---|
+| `$project-status-report` | 날짜별 원문을 근거로 일일·주간보고 초안 작성 |
+| `$project-html-deck` | 승인된 보고를 16:9 HTML 장표와 PDF로 제작·검사 |
+| `$project-briefing-video` | 무료 로컬 음성, 자막, 동적 장면을 포함한 MP4 렌더·검사 |
+
+자연어 요청만 해도 `AGENTS.md`가 알맞은 스킬로 연결합니다. 확실히 지정하고 싶다면 프롬프트 첫 줄에 스킬명을 붙이면 됩니다. Codex의 Skills 메뉴에서도 이 프로젝트 스킬을 확인할 수 있습니다.
 
 ## 5분 안에 시작하기
 
@@ -55,6 +70,7 @@ PROJECT_STATE.md에 승인된 현재 상태를 정리
 | 위치 | 용도 |
 |---|---|
 | `AGENTS.md` | AI가 요청을 해석하고 산출물까지 완주하는 규칙 |
+| `.agents/skills/` | Codex 공식 구조의 보고서·장표·영상 실행 스킬 |
 | `01_읽기.md` | 새 세션에서 확정·충돌·확인 필요를 나누는 방법 |
 | `02_만들기.md` | 일일보고·장표·PDF·영상 기획과 제작 기준 |
 | `03_검사.md` | 잘림·겹침·페이지·음성·해상도·사실을 확인하는 QA |

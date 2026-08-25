@@ -18,7 +18,7 @@
 
 이 경우 기본값은 다음과 같습니다.
 
-- 근거: 현재 시스템 날짜와 같은 `refs/YYYYMMDD/` + `PROJECT_STATE.md`. 오늘 폴더가 없으면 오늘보다 이전인 가장 최근 폴더를 사용하며, 미래 날짜 폴더는 읽지 않음
+- 근거: 현재 시스템 날짜와 같은 `refs/YYYYMMDD/` + `PROJECT_STATE.md`. 오늘 폴더가 없으면 정확한 누락 경로를 알리고 멈추며, 다른 날짜로 조용히 대체하지 않음
 - 산출물: 근거 요약 Markdown + 16:9 HTML/PDF + 약 30초 동적 MP4
 - 영상: 1920×1080, 30fps, Remotion, Crier/Supertonic F2 여성 음성
 - BGM: 사용자가 요청하지 않으면 없음
@@ -27,10 +27,25 @@
 
 길이나 대상이 명시되면 사용자의 값을 따릅니다. 사실을 바꿀 정도의 빈칸만 질문하고, 디자인·레이아웃·목소리 같은 가역적 선택은 기본값으로 진행합니다.
 
+## 프로젝트 스킬 — 작업 전 필수
+
+이 저장소는 Codex 공식 프로젝트 스킬 위치인 `.agents/skills/`를 사용합니다. 요청에 맞는 `SKILL.md`와 그 파일이 직접 연결한 reference를 먼저 읽고 작업합니다. 자연어로 요청해도 아래 스킬을 자동 적용하고, 사용자가 `$skill-name`을 쓰면 해당 스킬을 명시적으로 적용합니다.
+
+| 요청 | 먼저 읽을 스킬 |
+|---|---|
+| 오늘 한 일·일일보고·주간보고·슬랙 초안 | `.agents/skills/project-status-report/SKILL.md` |
+| 장표·피피티·PPT·HTML·PDF | `.agents/skills/project-html-deck/SKILL.md` |
+| 주간보고 영상·발표 영상·온보딩 영상 | `.agents/skills/project-briefing-video/SKILL.md` |
+
+- 장표나 영상을 만들 때는 먼저 `project-status-report`의 근거 규칙을 적용합니다.
+- 영상은 승인된 보고서나 장표를 내용 원본으로 삼고 `project-briefing-video`로 완주합니다.
+- 스킬을 읽었다는 설명으로 끝내지 말고, 해당 스킬의 렌더와 QA 단계까지 실행합니다.
+
 ## 폴더 지도
 
 | 위치 | 역할 |
 |---|---|
+| `.agents/skills/` | Codex가 자동 발견하는 보고서·장표·영상 프로젝트 스킬 |
 | `starter-project/` | 새 업무를 시작할 때 복사하는 범용 프로젝트 폴더 |
 | `시작_문장_3종.md` | 설치·맥락 확인·결과물 제작 시작 문장 |
 | `첫_자동화_판별_체크리스트.md` | 자동화 후보를 고르는 판별 기준 |

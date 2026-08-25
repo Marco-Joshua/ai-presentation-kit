@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "brand": "MARCO · CUSTOMER SUPPORT",
+    "period": "2026. 08. 24 — 08. 27",
+    "accent": "#245BFF"
+  },
+  "voice": {
+    "id": "F2",
+    "speed": 1.08,
+    "steps": 8
+  },
+  "scenes": [
+    {
+      "type": "hero",
+      "section": "WEEK 35 · CUSTOMER SUPPORT",
+      "eyebrow": "WEEKLY REPORT",
+      "title": "반복 문의는 줄이고\n첫 응답은 빨라졌습니다",
+      "titleSize": 86,
+      "contentWidth": 940,
+      "subtitle": "도움말과 답변 템플릿을 적용한\n고객지원팀의 이번 주 결과입니다.",
+      "image": "assets/visuals/cs-agent-editorial.png",
+      "caption": "고객지원 개선 주간보고",
+      "closedCaption": "반복 문의는 줄이고 첫 응답은 빨라졌습니다.",
+      "narration": "마르코 고객지원팀 주간보고입니다. 도움말과 답변 템플릿을 적용한 이번 주 결과를 보고드립니다."
+    },
+    {
+      "type": "sources",
+      "section": "01 · EVIDENCE",
+      "title": "흩어진 기록을\n한 번에 함께 읽었습니다",
+      "items": ["메일", "통화", "회의 전사", "메신저"],
+      "image": "assets/visuals/context-sources.png",
+      "caption": "네 가지 원문에서 같은 프로젝트의 맥락을 연결했습니다",
+      "closedCaption": "메일, 통화, 회의 전사, 메신저 기록을 함께 확인했습니다.",
+      "narration": "메일, 통화, 회의 전사, 메신저 기록을 함께 읽어 완료와 진행 상태를 구분했습니다."
+    },
+    {
+      "type": "metrics",
+      "section": "02 · RESULT",
+      "title": "고객지원 지표가 이렇게 바뀌었습니다",
+      "subtitleLine": "지난주 같은 구간과 월요일부터 목요일까지를 비교했습니다.",
+      "items": [
+        {"label": "전체 문의", "before": 42, "after": 31, "unit": "건", "detail": "11건 감소"},
+        {"label": "계정·로그인", "before": 18, "after": 9, "unit": "건", "detail": "절반으로 감소"},
+        {"label": "첫 응답", "before": 18, "after": 13, "unit": "분", "detail": "5분 단축"}
+      ],
+      "caption": "전체 문의 42→31건 · 계정·로그인 18→9건 · 첫 응답 18→13분",
+      "closedCaption": "전체 문의는 31건, 계정·로그인 문의는 9건, 첫 응답은 13분으로 개선됐습니다.",
+      "narration": "전체 문의는 마흔두 건에서 서른한 건으로, 계정과 로그인 문의는 열여덟 건에서 아홉 건으로 줄었습니다. 평균 첫 응답은 열여덟 분에서 열세 분으로 단축됐습니다."
+    },
+    {
+      "type": "list",
+      "section": "03 · DELIVERED",
+      "title": "이번 주 세 가지를 적용했습니다",
+      "items": [
+        {"title": "도움말 개편", "detail": "비밀번호 재설정 경로를 첫 화면에서 확인"},
+        {"title": "답변 템플릿", "detail": "재설정·계정 잠금 해제 템플릿 2종 적용"},
+        {"title": "AI 초안", "detail": "24건 중 22건을 담당자 확인 후 수정 없이 사용"}
+      ],
+      "caption": "자동 발송이 아니라 담당자가 확인하는 AI 초안입니다",
+      "closedCaption": "도움말과 템플릿을 적용했고, AI 초안 24건 중 22건을 수정 없이 사용했습니다.",
+      "narration": "비밀번호 재설정 도움말과 답변 템플릿 두 종을 적용했습니다. 에이아이 초안 스물네 건 가운데 스물두 건은 담당자 확인 뒤 수정 없이 사용했습니다."
+    },
+    {
+      "type": "compare",
+      "section": "04 · ISSUE",
+      "title": "배포 완료와 모니터링을 분리했습니다",
+      "subtitle": "같은 일을 완료와 진행으로 동시에 뭉뚱그리지 않습니다.",
+      "left": {"label": "DONE", "title": "13:20\n수정 배포", "detail": "아이폰 로그인 버튼 지연 수정\n운영 환경 반영 완료"},
+      "right": {"label": "MONITORING", "title": "8월 28일\n오전까지", "detail": "오류 로그와 재발 여부\n하루 추가 관찰"},
+      "callout": "배포는 완료 · 관찰은 진행 중",
+      "caption": "완료와 진행 상태를 근거대로 나눴습니다",
+      "closedCaption": "로그인 지연 수정은 배포했고, 재발 여부는 내일 오전까지 관찰합니다.",
+      "narration": "아이폰 로그인 지연 수정은 배포를 마쳤습니다. 다만 재발 여부는 내일 오전까지 계속 관찰합니다."
+    },
+    {
+      "type": "closing",
+      "section": "05 · NEXT WEEK",
+      "eyebrow": "NEXT",
+      "title": "다음 주에는\n운영 범위를 넓힙니다",
+      "items": ["다국어 도움말 초안", "수정된 AI 초안 2건의 사유 분류", "고객지원 대시보드 태그 정리"],
+      "image": "assets/visuals/cs-automation-editorial.png",
+      "caption": "확인된 결과를 다음 운영 개선으로 연결합니다",
+      "closedCaption": "다음 주에는 다국어 도움말과 수정 사유 분류, 대시보드 정리를 진행합니다.",
+      "narration": "다음 주에는 다국어 도움말 초안과 수정된 에이아이 초안 두 건의 사유 분류, 고객지원 대시보드 태그 정리를 진행하겠습니다."
+    }
+  ]
+}

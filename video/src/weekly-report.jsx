@@ -59,11 +59,32 @@ const Footer = ({meta, scene, index}) => {
   );
 };
 
+const Subtitle = ({text}) => text ? (
+  <div style={{
+    position: 'absolute',
+    zIndex: 20,
+    left: '50%',
+    bottom: 96,
+    maxWidth: 1420,
+    transform: 'translateX(-50%)',
+    padding: '14px 24px 15px',
+    background: 'rgba(10, 10, 10, 0.94)',
+    color: WHITE,
+    fontSize: 34,
+    lineHeight: 1.28,
+    fontWeight: 800,
+    letterSpacing: '-0.025em',
+    textAlign: 'center',
+    whiteSpace: 'pre-line',
+  }}>{text}</div>
+) : null;
+
 const Shell = ({children, runtime, scene, index, section}) => (
   <AbsoluteFill style={{background: WHITE, color: BLACK, fontFamily: 'Pretendard, sans-serif', overflow: 'hidden'}}>
     <style>{FONT_CSS}</style>
     <Header meta={runtime.meta} section={section} />
     {children}
+    <Subtitle text={scene.closedCaption} />
     <Footer meta={runtime.meta} scene={scene} index={index} />
     {scene.audio ? <Audio src={staticFile(scene.audio)} /> : null}
   </AbsoluteFill>
@@ -74,9 +95,9 @@ const Hero = ({runtime, scene, index}) => {
   const {fps} = useVideoConfig();
   return (
     <Shell runtime={runtime} scene={scene} index={index} section={scene.section || 'THIS WEEK'}>
-      <div style={{position: 'absolute', left: 72, top: 205, width: scene.image ? 820 : 1500, zIndex: 2, ...reveal(frame, fps, 2)}}>
+      <div style={{position: 'absolute', left: 72, top: 205, width: scene.contentWidth || (scene.image ? 820 : 1500), zIndex: 2, ...reveal(frame, fps, 2)}}>
         <div style={{fontSize: 26, fontWeight: 800, color: runtime.meta.accent, letterSpacing: '0.09em', marginBottom: 23}}>{scene.eyebrow || 'WEEKLY REPORT'}</div>
-        <div style={{fontSize: 102, lineHeight: 1.02, fontWeight: 800, letterSpacing: '-0.06em', whiteSpace: 'pre-line'}}>{scene.title}</div>
+        <div style={{fontSize: scene.titleSize || 102, lineHeight: 1.02, fontWeight: 800, letterSpacing: '-0.06em', whiteSpace: 'pre-line'}}>{scene.title}</div>
         {scene.subtitle ? <div style={{marginTop: 30, fontSize: 31, lineHeight: 1.45, color: GRAY, fontWeight: 600, whiteSpace: 'pre-line'}}>{scene.subtitle}</div> : null}
       </div>
       {scene.image ? <Img src={staticFile(scene.image)} style={{position: 'absolute', right: -45, top: 145, width: 1040, height: 760, objectFit: 'contain', ...pushIn(frame, fps, 5)}} /> : null}
@@ -127,6 +148,46 @@ const List = ({runtime, scene, index}) => {
   );
 };
 
+const numeric = (value) => {
+  if (value === null || value === undefined || String(value).trim() === '') return null;
+  if (typeof value === 'number') return value;
+  const parsed = Number(String(value ?? '').replace(/[^0-9.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const Metrics = ({runtime, scene, index}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const items = (scene.items || []).slice(0, 4);
+  return (
+    <Shell runtime={runtime} scene={scene} index={index} section={scene.section || '02 · METRICS'}>
+      <div style={{position: 'absolute', left: 72, top: 185, right: 72, ...reveal(frame, fps)}}>
+        <div style={{fontSize: 58, fontWeight: 800, letterSpacing: '-0.045em'}}>{scene.title}</div>
+        {scene.subtitleLine ? <div style={{fontSize: 28, color: GRAY, marginTop: 16}}>{scene.subtitleLine}</div> : null}
+      </div>
+      <div style={{position: 'absolute', left: 72, right: 72, top: 360, display: 'grid', gridTemplateColumns: `repeat(${Math.max(1, items.length)}, 1fr)`, gap: 34}}>
+        {items.map((item, i) => {
+          const before = numeric(item.before);
+          const after = numeric(item.after);
+          const progress = interpolate(frame, [14 + i * 7, 52 + i * 7], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const display = after === null ? String(item.after ?? item.value ?? '') : String(Math.round((before ?? 0) + (after - (before ?? 0)) * progress));
+          return (
+            <div key={`${item.label}-${i}`} style={{minHeight: 360, borderTop: `${i === 0 ? 7 : 3}px solid ${i === 0 ? runtime.meta.accent : BLACK}`, paddingTop: 24, ...reveal(frame, fps, 8 + i * 7, 26)}}>
+              <div style={{fontSize: 20, color: i === 0 ? runtime.meta.accent : GRAY, fontWeight: 800, letterSpacing: '0.08em'}}>{item.label}</div>
+              <div style={{display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 52}}>
+                <span style={{fontSize: 108, lineHeight: 0.95, fontWeight: 800, letterSpacing: '-0.07em'}}>{display}</span>
+                <span style={{fontSize: 31, fontWeight: 800}}>{item.unit || ''}</span>
+              </div>
+              {before !== null && after !== null ? <div style={{fontSize: 24, color: GRAY, marginTop: 28}}>{item.before}{item.unit || ''} → {item.after}{item.unit || ''}</div> : null}
+              {item.detail ? <div style={{fontSize: 24, lineHeight: 1.4, color: GRAY, marginTop: 20, whiteSpace: 'pre-line'}}>{item.detail}</div> : null}
+            </div>
+          );
+        })}
+      </div>
+    </Shell>
+  );
+};
+
 const Compare = ({runtime, scene, index}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -162,7 +223,7 @@ const Closing = ({runtime, scene, index}) => {
       {scene.image ? <Img src={staticFile(scene.image)} style={{position: 'absolute', right: -30, top: 145, width: 1050, height: 740, objectFit: 'contain', ...pushIn(frame, fps, 4)}} /> : null}
       <div style={{position: 'absolute', left: 72, top: 210, width: 930, ...reveal(frame, fps, 2)}}>
         <div style={{fontSize: 26, fontWeight: 800, color: runtime.meta.accent, letterSpacing: '0.1em'}}>{scene.eyebrow || 'NEXT'}</div>
-        <div style={{fontSize: 82, lineHeight: 1.08, fontWeight: 800, letterSpacing: '-0.055em', marginTop: 24, whiteSpace: 'pre-line'}}>{scene.title}</div>
+        <div style={{fontSize: scene.titleSize || 82, lineHeight: 1.08, fontWeight: 800, letterSpacing: '-0.055em', marginTop: 24, whiteSpace: 'pre-line'}}>{scene.title}</div>
         <div style={{marginTop: 42}}>
           {(scene.items || []).map((item, i) => <div key={item} style={{fontSize: 32, fontWeight: 700, marginBottom: 17, ...reveal(frame, fps, 14 + i * 7, 20)}}><span style={{color: runtime.meta.accent, marginRight: 18}}>{String(i + 1).padStart(2, '0')}</span>{item}</div>)}
         </div>
@@ -171,7 +232,7 @@ const Closing = ({runtime, scene, index}) => {
   );
 };
 
-const TYPES = {hero: Hero, sources: Sources, list: List, compare: Compare, closing: Closing};
+const TYPES = {hero: Hero, sources: Sources, metrics: Metrics, list: List, compare: Compare, closing: Closing};
 
 export const WeeklyReport = (runtime) => {
   const meta = {...runtime.meta, sceneCount: runtime.scenes.length};

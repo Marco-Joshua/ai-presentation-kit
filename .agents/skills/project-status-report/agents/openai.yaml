@@ -1,0 +1,4 @@
+interface:
+  display_name: "프로젝트 보고서"
+  short_description: "업무 기록에서 근거 있는 일일·주간보고를 만듭니다"
+  default_prompt: "Use $project-status-report to create a grounded daily or weekly project report."

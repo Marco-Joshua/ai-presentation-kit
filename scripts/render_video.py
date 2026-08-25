@@ -122,6 +122,7 @@ def prepare_runtime(manifest_path: Path, crier: Path) -> tuple[dict, Path]:
         narration = current.pop("narration", "").strip()
         if not narration:
             raise ValueError(f"장면 {index}에 narration이 없습니다.")
+        current["closedCaption"] = current.get("closedCaption", "").strip()
         spoken = clean_for_speech(narration, korean)
         audio = public_run / f"{index:02d}.wav"
         if not audio.exists() or audio.stat().st_size <= 44:

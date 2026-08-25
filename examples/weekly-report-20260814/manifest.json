@@ -18,6 +18,7 @@
       "subtitle": "흩어진 업무 연락 네 건을 바탕으로\n이번 주 결정과 다음 행동을 정리했습니다.",
       "image": "assets/visuals/onboarding-deliverables.png",
       "caption": "8월 14일 업무 기록을 기준으로 보고합니다",
+      "closedCaption": "8월 14일 업무 기록을 기준으로 이번 주 결정과 다음 행동을 보고합니다.",
       "narration": "마르코 온보딩 프로젝트 주간보고입니다. 이번 주 결정과 다음 행동입니다."
     },
     {
@@ -27,6 +28,7 @@
       "items": ["메일", "통화", "회의", "메신저"],
       "image": "assets/visuals/context-sources.png",
       "caption": "메일 · 통화 · 회의 · 메신저를 함께 확인했습니다",
+      "closedCaption": "메일, 통화, 회의, 메신저를 하나의 프로젝트 맥락으로 모았습니다.",
       "narration": "메일, 통화, 회의, 메신저 네 채널을 함께 반영했습니다."
     },
     {
@@ -39,6 +41,7 @@
         {"title": "업무 흐름", "detail": "깃허브 플로우와 풀 리퀘스트 리뷰"}
       ],
       "caption": "대상 · 산출물 · 개발팀 업무 흐름 확정",
+      "closedCaption": "대상과 산출물, 개발팀 업무 흐름 세 가지를 확정했습니다.",
       "narration": "대상, 산출물, 개발팀 업무 흐름 세 가지를 확정했습니다."
     },
     {
@@ -50,6 +53,7 @@
       "right": {"label": "MEETING", "title": "개인 결제 후 정산", "detail": "사내 시스템에서 식대 신청"},
       "callout": "추측 대신 확인 필요로 남겼습니다",
       "caption": "충돌을 숨기지 않고 확인 과제로 분리했습니다",
+      "closedCaption": "서로 다른 점심 결제 안내는 임의로 결정하지 않고 확인 과제로 남겼습니다.",
       "narration": "점심 결제 방식은 자료가 충돌해 확인 과제로 남겼습니다."
     },
     {
@@ -60,6 +64,7 @@
       "items": ["점심 결제 방식 확인", "운영 정보 갱신", "확정 내용으로 장면표 작성"],
       "image": "assets/visuals/onboarding-deliverables.png",
       "caption": "확정된 사실만 다음 산출물로 연결합니다",
+      "closedCaption": "미정 정보를 확인한 뒤 확정된 사실만 다음 장면표로 연결합니다.",
       "narration": "다음 주에는 미정 정보를 확인하고 영상 장면표를 작성합니다."
     }
   ]

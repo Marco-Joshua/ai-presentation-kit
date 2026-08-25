@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML 발표자료"
+  short_description: "프로젝트 맥락으로 고품질 HTML·PDF 장표를 만듭니다"
+  default_prompt: "Use $project-html-deck to create and verify a 16:9 HTML and PDF presentation."

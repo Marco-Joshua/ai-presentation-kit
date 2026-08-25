@@ -1,7 +1,17 @@
 .DS_Store
+__pycache__/
+*.pyc
+video/node_modules/
+video/public/generated/
+.tools/
+.venv-video/
+legacy/
+output/*-runtime.json
+output/qa/
 output/*
 !output/README.md
 *.mp4
+!examples/**/*.mp4
 *.wav
 *.mp3
 !assets/bgm*.mp3
